@@ -16,7 +16,8 @@ module.exports = {
     },
     port: 8080,
     proxy: {
-      '/dashboardContainer': 'http://localhost:3000',
+      '/oauth': 'http://localhost:3000',
+      '/google': 'http://localhost:3000'
     },
     hot: true,
 

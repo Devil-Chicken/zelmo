@@ -4,12 +4,46 @@ const app = express();
 const PORT = 3000;
 const accountController = require('./controllers/accountController');
 const transferController = require('./controllers/transferController');
+const fetch = require('node-fetch');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const AccessKey = process.env.ACCESS_KEY;
+const SecretKey = process.env.SECRET_KEY;
+
 
 // app.use(express.json());
 
 
-app.get('/', (req, res) => {
-  res.send('Hello?');
+app.get('/oauth', (req, res) => {
+  console.log('made it to oauth route');
+  console.log('AccessKey: ', AccessKey);
+  try {
+    const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?scope=openid%20profile%20email&response_type=token&redirect_uri=http://localhost:8080&client_id=${AccessKey}`;
+    res.redirect(googleUrl);
+    console.log('redirected');
+  }
+  catch (e) {
+    console.log(e)
+  }
+})
+
+app.get('/google', async (req, res) => {
+  console.log(req.headers.access_code)
+  console.log('trying to get user info');
+  const access_token = req.headers.access_code;
+  res.user = {};
+
+  const fetchResult = await fetch(`https://openidconnect.googleapis.com/v1/userinfo?access_token=${access_token}`, {
+    method: 'get',
+  })
+  const fetchJson = await fetchResult.json();
+  console.log('successfully got user info');
+  console.log(fetchJson);
+  // res.user.id = fetchJson.sub;
+
+  // return res.status(200).send(JSON.stringify(res.user));
 })
 
 app.get('/dashboardContainer', (req, res) => {
