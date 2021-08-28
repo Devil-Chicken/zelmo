@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.send('Hello?');
 })
 
+app.get('/dashboardContainer', (req, res) => {
+  res.redirect('http://localhost:8080/dashboard')
+})
+
 app.get('/balance', accountController.viewBalance, (req, res) => {
   console.log('Hit the balance end point');
   res.status(200).json(res.locals.viewBalance);
