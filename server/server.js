@@ -10,7 +10,9 @@ app.get('/', (req, res) => {
   res.send('Hello?');
 })
 
-
+app.get('/dashboardContainer', (req, res) => {
+  res.redirect('http://localhost:8080/dashboard')
+})
 
 
 

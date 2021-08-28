@@ -15,7 +15,7 @@ module.exports = {
     },
     port: 8080, 
     proxy: {
-      '/oauth': 'http://localhost:3000'
+      '/dashboardContainer': 'http://localhost:3000',
     }, 
     hot: true,
 
@@ -39,4 +39,7 @@ module.exports = {
 
     ]
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
 }
