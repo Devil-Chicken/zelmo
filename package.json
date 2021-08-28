@@ -4,7 +4,8 @@
   "description": "scratch project",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently \"webpack-dev-server\" \"nodemon server/server.js\""
+    "start": "NODE_ENV=development nodemon server/server.js",
+    "dev": "NODE_ENV=development concurrently \"webpack-dev-server\" \"nodemon server/server.js\""
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +34,6 @@
     "webpack-dev-server": "^4.0.0"
   },
   "optionalDependencies": {
-    "win-node-env": "^0.4.0" 
+    "win-node-env": "^0.4.0"
   }
 }
