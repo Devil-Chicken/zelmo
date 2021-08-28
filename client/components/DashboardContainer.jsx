@@ -5,14 +5,23 @@ import Deposit from './Deposit';
 import Transfer from './Transfer';
 import Withdraw from './Withdraw';
 
+
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+
 const DashboardContainer = () => {
-  return <div>
-    <Dashboard />
-    <Actions />
-    <Deposit />
-    <Transfer />
-    <Withdraw />
-  </div>
+  return (
+    <Router>
+      <div>
+        <Dashboard />
+        <Actions />
+        <Switch>
+          <Route path="/deposit"> <Deposit /> </Route>
+          <Route path="/transfer"> <Transfer /> </Route>
+          <Route path="/withdraw"> <Withdraw /> </Route>
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
 export default DashboardContainer;
