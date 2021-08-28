@@ -9,11 +9,11 @@ CREATE TABLE users (
   OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS accounts cascade;
 CREATE TABLE accounts (
   "account_id" serial NOT NULL,
   "date_opened" timestamp NOT NULL,
-  "balance" int NOT NULL, 
+  "balance" int NOT NULL CHECK (balance >= 0), 
   "history" varchar, 
   CONSTRAINT "accounts_pk" PRIMARY KEY ("account_id")
 ) WITH (
