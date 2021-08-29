@@ -29,22 +29,19 @@ app.get('/oauth', (req, res) => {
   }
 })
 
-app.get('/google', async (req, res) => {
-  console.log(req.headers.access_code)
-  console.log('trying to get user info');
-  const access_token = req.headers.access_code;
-  res.user = {};
+app.get('/google', accountController.getUserInfo, accountController.checkDB, accountController.createUser, async (req, res) => {
+  console.log('made it out of google route')
 
-  const fetchResult = await fetch(`https://openidconnect.googleapis.com/v1/userinfo?access_token=${access_token}`, {
-    method: 'get',
-  })
-  const fetchJson = await fetchResult.json();
-  console.log('successfully got user info');
-  console.log(fetchJson);
-  // res.user.id = fetchJson.sub;
 
-  // return res.status(200).send(JSON.stringify(res.user));
+  // if (res.user.foundUser === false) {
+  //   console.log('did not find user, going to create user')
+  //   res.redirect('/createUser');
+  // } else {
+  //   console.log('user already exists')
+  // }
 })
+
+
 
 app.get('/dashboardContainer', (req, res) => {
   res.redirect('http://localhost:8080/dashboard')
