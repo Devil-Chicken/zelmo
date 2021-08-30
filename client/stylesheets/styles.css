@@ -102,3 +102,8 @@ button :active {
   width: 100vw;
   text-align: center;
 }
+
+#actions {
+  display: flex;
+  flex-direction: column;
+}

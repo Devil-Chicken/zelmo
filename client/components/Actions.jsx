@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 
 const Actions = () => {
     return (
-        <ul>
-            <li>
+        <div id="actions">
+            You can...
+            <button>
                 <Link to="/deposit">Deposit</Link>
-            </li>
-            <li>
+            </button>
+            <button>
                 <Link to="/transfer">Transfer</Link>
-            </li>
-            <li>
+            </button>
+            <button>
                 <Link to="/withdraw">Withdraw</Link>
-            </li>
-        </ul>        
+            </button>
+        </div>        
     )
 }
 
