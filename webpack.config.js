@@ -20,6 +20,7 @@ module.exports = {
       '/google': 'http://localhost:3000',
       '/depositAmount': 'http://localhost:3000',
       '/withdrawAmount': 'http://localhost:3000',
+      '/send': 'http://localhost:3000'
     },
     hot: true,
 
