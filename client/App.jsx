@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,12 +13,16 @@ import DashboardContainer from './components/DashboardContainer';
 // import Actions from './components/Actions';
 
 const App = () => {
+  const [ user, setUser ] = useState({})
   return (
     <Router>
       <div> 
           <Switch>
-            <Route exact path="/" > <Login /> </Route>
-            <Route exact path="/dash" > <DashboardContainer /> </Route>
+            <Route exact path="/" > <Login 
+            setUser={setUser}/> </Route>
+            <Route exact path="/dash" > <DashboardContainer
+            user={user} 
+            setUser={setUser} /> </Route>
           </Switch>
       </div>
     </Router>

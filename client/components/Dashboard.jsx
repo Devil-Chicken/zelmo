@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Dashboard = () => {
+const Dashboard = ({ name, email, balance }) => {
     return <div>
         <h1>Dashboard</h1>
-        <p>Balance:</p>
+        <p>Welcome {name} !</p>
+        <p>Balance: {balance}</p>
     </div>
 }
 
