@@ -61,8 +61,8 @@ body {
 
 button {
   box-shadow: 0px 10px 14px -10px #000000;
-  background:linear-gradient(to bottom, #9c8d5c 5%, #6d6c4f 100%);
-  background-color:#768d87;
+  /* background:linear-gradient(to bottom, #9c8d5c 5%, #6d6c4f 100%); */
+  background-color:#9c8d5c;
   border-radius:8px;
   display:inline-block;
   cursor:pointer;
@@ -98,12 +98,89 @@ button :active {
   width: 100vw;
 }
 
+#dashboard {
+  font-family: var(--secondary-font);
+  font-size: 24pt;
+  color: white;
+  margin-bottom: 20px;
+}
+
+#dashboard p {
+  margin: 10px 0px 10px 10px;
+}
+
+#dashboard p span{
+  color: rgb(0, 204, 0);
+  font-weight: bold;
+}
+
 #dashboard_title {
   width: 100vw;
   text-align: center;
+  font-family: var(--primary-font);
+  font-size: 36pt;
+  color: white;
+  margin-top: 40px;
 }
+
 
 #actions {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--secondary-font);
+  font-size: 24pt;
+  color: white;
+  width: 100vw;
+  margin-bottom: 20px;
+}
+
+#actions button {
+  width: 146px;
+  background-color: white;
+  color: var(--secondary-color);
+  box-shadow: 0px 10px 14px -10px #000000;
+  margin: 5px;
+
+}
+
+#actions .actionButton {
+  text-decoration: none;
+  width: 146px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form label {
+  color: white;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+.form input {
+  width: 300px;
+  font-size: 18pt;
+  border-radius: 8px;
+  font-family: var(--secondary-font);
+  font-size: 18pt;
+  margin: 3px;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-family: var(--secondary-font);
+}
+
+.form button {
+  margin-top: 5px;
 }

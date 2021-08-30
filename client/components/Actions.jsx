@@ -5,14 +5,14 @@ const Actions = () => {
     return (
         <div id="actions">
             You can...
-            <button>
-                <Link to="/deposit">Deposit</Link>
+            <button >
+                <Link className="actionButton" to="/deposit">Deposit</Link>
             </button>
-            <button>
-                <Link to="/transfer">Transfer</Link>
+            <button >
+                <Link className="actionButton" to="/transfer">Transfer</Link>
             </button>
-            <button>
-                <Link to="/withdraw">Withdraw</Link>
+            <button >
+                <Link className="actionButton" to="/withdraw">Withdraw</Link>
             </button>
         </div>        
     )

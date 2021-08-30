@@ -34,12 +34,11 @@ const Withdraw = ({ userId, setUser, user}) => {
 }
 
   return (
-    <div>
-      <form  onSubmit={(e) => onSubmit(e)} >
-        <label htmlFor="withdraw_request">withdraw amount</label>
-        <input type="text" id="withdraw_amount" placeholder="Enter withdraw amount..." autocomplete="off"/>
-        <label htmlFor="withdraw_memo">withdraw memo</label>
-        <input type="text" id="withdraw_description" placeholder="Enter withdraw memo..." autocomplete="off"/>
+    <div className="form_container">
+      <form className="form" onSubmit={(e) => onSubmit(e)} >
+        <label htmlFor="withdraw_request">Withdraw</label>
+        <input type="text" id="withdraw_amount" placeholder="Enter withdraw amount..." autoComplete="off"/>
+        <input type="text" id="withdraw_description" placeholder="Enter memo here..." autoComplete="off"/>
         <button id="withdraw_button" type="submit" placeholder="withdraw">Withdraw</button>
       </form>
     </div>
