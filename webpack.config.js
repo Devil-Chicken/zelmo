@@ -1,22 +1,27 @@
 const path = require('path');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: './client/index.js', 
+  mode: 'development',
+  // process.env.NODE_ENV,
+  entry: './client/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
     publicPath: '/build/'
-  }, 
+  },
   devServer: {
     static: {
-      directory: path.join(__dirname, '/client'), 
+      directory: path.join(__dirname, '/client'),
       publicPath: '/',
     },
-    port: 8080, 
+    port: 8080,
     proxy: {
-      '/dashboardContainer': 'http://localhost:3000',
-    }, 
+      '/oauth': 'http://localhost:3000',
+      '/google': 'http://localhost:3000',
+      '/depositAmount': 'http://localhost:3000',
+      '/withdrawAmount': 'http://localhost:3000',
+      '/send': 'http://localhost:3000'
+    },
     hot: true,
 
   },
