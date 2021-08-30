@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import fetch from 'node-fetch';
 
 
-const Login = () => {
+const Login = ({ setUser }) => {
   let history = useHistory();
-
+  
   // const onSubmit = () => {
   //   fetch('/oauth')
 
@@ -18,7 +18,11 @@ const Login = () => {
       headers: { access_code: access_code }
     })
       .then(res => res.json())
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res);
+        setUser(res);
+        history.push('/dash');
+      })
       .catch(err => console.log('ERRRR', err))
   }
 

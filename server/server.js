@@ -12,9 +12,7 @@ dotenv.config();
 const AccessKey = process.env.ACCESS_KEY;
 const SecretKey = process.env.SECRET_KEY;
 
-
-// app.use(express.json());
-
+app.use(express.json());
 
 app.get('/oauth', (req, res) => {
   console.log('made it to oauth route');
@@ -29,10 +27,19 @@ app.get('/oauth', (req, res) => {
   }
 })
 
-app.get('/google', accountController.getUserInfo, accountController.checkDB, accountController.createUser, async (req, res) => {
-  console.log('made it out of google route')
-
-
+app.get('/google', accountController.getUserInfo, 
+  accountController.checkDB, 
+  accountController.createUser, 
+  accountController.createAccount, 
+  accountController.viewBalance,
+  async (req, res) => {
+    console.log('made it out of google route')
+    return res.status(200).send(JSON.stringify({
+      name: res.user.name,
+      email: res.user.email,
+      account_id: res.user.account_id,
+      balance: res.user.balance
+    }))
   // if (res.user.foundUser === false) {
   //   console.log('did not find user, going to create user')
   //   res.redirect('/createUser');
@@ -40,8 +47,6 @@ app.get('/google', accountController.getUserInfo, accountController.checkDB, acc
   //   console.log('user already exists')
   // }
 })
-
-
 
 app.get('/dashboardContainer', (req, res) => {
   res.redirect('http://localhost:8080/dashboard')
@@ -52,12 +57,12 @@ app.get('/balance', accountController.viewBalance, (req, res) => {
   res.status(200).json(res.locals.viewBalance);
 })
 
-app.post('/deposit', accountController.depositBalance, (req, res) => {
+app.post('/depositAmount', accountController.depositBalance, (req, res) => {
   console.log('Successful deposit');
   res.status(200).json(res.locals.depositBalance);
 })
 
-app.post('/withdraw', accountController.withdrawBalance, (req, res) => {
+app.post('/withdrawAmount', accountController.withdrawBalance, (req, res) => {
   console.log('Successful withdraw');
   res.status(200).json(res.locals.withdrawBalance);
 })

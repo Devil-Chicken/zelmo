@@ -28,27 +28,24 @@ accountController.checkDB = async (req, res, next) => {
   SELECT account_id from users
   WHERE google_id = '${res.user.sub}'
   `
-  await db.query(query, (err, response) => {
-    if (err) {
-      console.log('err from checkDB:', err);
-    } else {
+  db.query(query)
+    .then(response => {
       if (response.rows.length !== 0) {
+        console.log('User Exists: ', response.rows[0])
         res.user.foundUser = true;
         console.log('Response from DB in checkDB', response.rows[0])
-        res.user.accountID = response.rows[0]
-
+        res.user.account_id = response.rows[0].account_id;
+        return next();
       }
-    }
-
-
-  })
-  console.log('res.user.foundUser: ', res.user.foundUser)
-  return next();
+      return next();
+    })
+    .catch(e => console.log(e))
 }
 
 accountController.createUser = async (req, res, next) => {
   console.log('res.user.foundUser in createUser: ', res.user.foundUser)
   if (res.user.foundUser === true) {
+    console.log('found user is true in createUser')
     return next();
   }
   console.log('made it to create user');
@@ -59,15 +56,45 @@ accountController.createUser = async (req, res, next) => {
       email
     )
     VALUES ('${res.user.sub}', '${res.user.name}', '${res.user.email}')
+    RETURNING account_id
+  `
+  await db.query(query, (err, response) => {
+    if (err) {
+      console.log(err)
+    }
+    res.user.account_id = response.rows[0].account_id;
+    console.log('RETURNED NEW USER', response.rows)
+    return next();
+  })
+
+  // return next();
+
+}
+
+// account creation
+accountController.createAccount = async (req, res, next) => {
+  console.log('res.user.foundUser in createAccount: ', res.user.foundUser)
+  if (res.user.foundUser === true) {
+    console.log('found user is true in createAccount')
+    return next();
+  }
+  console.log('made it to createAccount');
+  const query = `
+    INSERT INTO accounts (
+      account_id, 
+      date_opened, 
+      balance,
+      history
+    )
+    VALUES ('${res.user.account_id}', NOW(), 0,  '')
   `
   await db.query(query, (err, response) => {
     if (err) {
       console.log(err)
     }
     console.log('RETURNED NEW USER', response.rows)
+    return next();
   })
-
-  return next();
 
 
 }
@@ -78,7 +105,7 @@ accountController.viewBalance = (req, res, next) => {
   const query = `
   SELECT balance
   FROM accounts
-  WHERE account_id = 1
+  WHERE account_id = '${res.user.account_id}'
   `
   db.query(query, (err, response) => {
     if (err) {
@@ -87,17 +114,21 @@ accountController.viewBalance = (req, res, next) => {
         message: { err: 'Error occured in viewBalance account.Controller' }
       })
     }
-    console.log('BALANCE', response);
-    res.locals.viewBalance = response.rows;
+    console.log('BALANCE', response.rows[0].balance);
+    res.user.balance = response.rows[0].balance;
+    console.log('USER: ', res.user)
     return next();
   })
 }
 // deposit money
 accountController.depositBalance = (req, res, next) => {
+  console.log('Made it to deposit balance');
+  console.log('Request body in depositBalance: ',req.body);
+
   const query = `
   UPDATE accounts
-  SET balance = (balance + 55555555)
-  WHERE account_id = 1
+  SET balance = (balance + ${req.body.deposit_amount})
+  WHERE account_id = '${req.body.account_id}'
   RETURNING balance
   `
   db.query(query, (err, response) => {
@@ -107,30 +138,30 @@ accountController.depositBalance = (req, res, next) => {
         message: { err: 'Error occured in the depositBalance account.Controller' }
       })
     }
-    console.log('deposit balance: ', response);
-    res.locals.depositBalance = response.rows;
+    console.log('deposit balance: ', response.rows[0]);
+    res.locals.depositBalance = response.rows[0];
     return next();
   })
 }
 
 // withdraw money
 accountController.withdrawBalance = (req, res, next) => {
-  const withdrawAmount = 500000000;
   const query = `
   UPDATE accounts
-  SET balance = (balance - ${withdrawAmount})
-  WHERE account_id = 1
+  SET balance = (balance - ${req.body.withdraw_amount})
+  WHERE account_id = '${req.body.account_id}'
   RETURNING balance
   `
   db.query(query, (err, response) => {
     if (err) {
+      console.log(err)
       return next({
-        log: 'Error in deposit middleware',
+        log: 'Error in withdraw middleware',
         message: { err: ' You broke!' }
       })
     }
-    console.log('withdraw balance: ', response);
-    res.locals.withdrawBalance = response.rows;
+    console.log('withdraw balance: ', response.rows[0]);
+    res.locals.withdrawBalance = response.rows[0];
     return next();
   })
 }

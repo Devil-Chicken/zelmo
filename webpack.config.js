@@ -17,7 +17,9 @@ module.exports = {
     port: 8080,
     proxy: {
       '/oauth': 'http://localhost:3000',
-      '/google': 'http://localhost:3000'
+      '/google': 'http://localhost:3000',
+      '/depositAmount': 'http://localhost:3000',
+      '/withdrawAmount': 'http://localhost:3000',
     },
     hot: true,
 
