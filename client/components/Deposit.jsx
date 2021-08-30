@@ -31,13 +31,12 @@ const Deposit = ({ userId, setUser, user}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={(e) => onSubmit(e)}>
-                <label htmlFor="deposit_amount">Deposit Amount:</label>
-                <input id="deposit_amount" type="text" placeholder="Enter deposit amount..." autocomplete="off"/>
-                <label htmlFor="deposit_note">Description:</label>
-                <input id="deposit_note" type="text" placeholder="Enter memo here..." autocomplete="off"/>
-                <button id="submit_deposit" type="submit">deposit</button>
+        <div className="form_container">
+            <form className="form" onSubmit={(e) => onSubmit(e)}>
+                <label htmlFor="deposit_amount">Deposit</label>
+                <input id="deposit_amount" type="text" placeholder="Enter deposit amount..." autoComplete="off"/>
+                <input id="deposit_note" type="text" placeholder="Enter memo here..." autoComplete="off"/>
+                <button id="submit_deposit" type="submit">Deposit</button>
             </form>
         </div>
     )

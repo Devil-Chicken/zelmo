@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Dashboard = ({ name, email, balance }) => {
-    return <div>
-        <h1>Dashboard</h1>
-        <p>Welcome {name} !</p>
-        <p>Balance: {balance}</p>
+    return <div id="dashboard">
+        <div id="dashboard_title">zelmo</div>
+        <p>Welcome back {name}!</p>
+        <p>Balance: <span>{balance.toLocaleString('us-US', { style: 'currency', currency: 'USD' })
+}</span></p>
     </div>
 }
 

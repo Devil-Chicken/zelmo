@@ -16,7 +16,7 @@ const App = () => {
   const [ user, setUser ] = useState({})
   return (
     <Router>
-      <div> 
+      <div id="main_container"> 
           <Switch>
             <Route exact path="/" > <Login 
             setUser={setUser}/> </Route>

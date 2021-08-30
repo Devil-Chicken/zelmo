@@ -49,12 +49,12 @@ const Transfer = ({ userId, setUser, user }) => {
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => onSubmit(e)} >
-        <label htmlFor="transfer_recipient">Email: </label>
-        <input id="transfer_recipient" type="text" placeholder="who you're sending money to" />
-        <input id="transfer_amount" type="text" placeholder="transfer amount" />
-        <input id="transfer_description" type="text" placeholder="description of transfer" />
+    <div className="form_container">
+      <form className="form" onSubmit={(e) => onSubmit(e)} >
+        <label htmlFor="transfer_recipient">Transfer</label>
+        <input id="transfer_recipient" type="text" placeholder="Recipient..." autoComplete="off"/>
+        <input id="transfer_amount" type="text" placeholder="Transfer amount..." autoComplete="off"/>
+        <input id="transfer_description" type="text" placeholder="Enter memo here..." autoComplete="off"/>
         <button type="submit">Transfer</button>
       </form>
     </div>

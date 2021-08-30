@@ -13,8 +13,8 @@ const DashboardContainer = ({ user, setUser }) => {
   console.log('MADE IT TO DASHBOARD, USER IS: ', user);
   return (
     <Router>
-      <div>
-        <Dashboard name={user.name} email={user.email} balance={user.balance} />
+      <div id="dashboard_container">
+        <Dashboard name={ user.name } email={ user.email } balance={ user.balance }/>
         <Actions />
         <Switch>
           <Route path="/deposit"> <Deposit userId={user.account_id} setUser={setUser} user={user} /> </Route>
