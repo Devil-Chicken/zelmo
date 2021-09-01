@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 import Deposit from './Deposit';
 import Transfer from './Transfer';
 import Withdraw from './Withdraw';
+import TransactionHistory from './TransactionHistory';
 
 
 
@@ -20,6 +21,8 @@ const DashboardContainer = ({ user, setUser }) => {
           <Route path="/deposit"> <Deposit userId={user.account_id} setUser={setUser} user={user} /> </Route>
           <Route path="/transfer"> <Transfer userId={user.account_id} setUser={setUser} user={user} /> </Route>
           <Route path="/withdraw"> <Withdraw userId={user.account_id} setUser={setUser} user={user} /> </Route>
+          {/* adding route path to transaction history */}
+          <Route path="/transactionhistory"> <TransactionHistory userId={user.account_id} setUser={setUser} user={user} /> </Route>
         </Switch>
       </div>
     </Router>
