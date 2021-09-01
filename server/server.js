@@ -17,11 +17,11 @@ const SecretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'default_session_secret',
-  resave: false,
-  saveUnintialized: false,
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET || 'default_session_secret',
+//   resave: false,
+//   saveUnintialized: false,
+// }));
 
 app.get('/oauth', (req, res) => {
   console.log('made it to oauth route');

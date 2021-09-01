@@ -23,7 +23,8 @@ const DashboardContainer = ({ user, setUser }) => {
           <Route path="/withdraw"> <Withdraw userId={user.account_id} setUser={setUser} user={user} /> </Route>
           {/* adding route path to transaction history */}
           <Route path="/transactionhistory"> <TransactionHistory userId={user.account_id} setUser={setUser} user={user} /> </Route>
-        </Switch>
+
+          </Switch>
       </div>
     </Router>
   )

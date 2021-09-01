@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import fetch from 'node-fetch';
 import '../stylesheets/styles.css';
@@ -12,6 +12,20 @@ const TransactionHistory = ({ userId, setUser, user}) => {
     console.log('button pushed')
     history.push('/dash');
   }
+
+  // const getTransactions 
+  useEffect((userId) => {
+    console.log('invoking getTransactions');
+    fetch('/transactionHistory', {
+      method: 'GET',
+      headers: { userId: userId }
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log('THIS IS TRANSACTION HISTORY: ', res)
+    })
+    .catch(err => console.log('error in the fetch!', err))
+  })
 
 // show information onload 5 most recent transactions?
 // we need to query the database and return date, trasnaction type, amount, users involved, and memo
