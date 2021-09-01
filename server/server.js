@@ -6,6 +6,7 @@ const accountController = require('./controllers/accountController');
 const transferController = require('./controllers/transferController');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
+const session = require('express-session');
 
 dotenv.config();
 
@@ -13,6 +14,12 @@ const AccessKey = process.env.ACCESS_KEY;
 const SecretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'default_session_secret',
+  resave: false,
+  saveUnintialized: false,
+}));
 
 app.get('/oauth', (req, res) => {
   console.log('made it to oauth route');
@@ -27,10 +34,10 @@ app.get('/oauth', (req, res) => {
   }
 })
 
-app.get('/google', accountController.getUserInfo, 
-  accountController.checkDB, 
-  accountController.createUser, 
-  accountController.createAccount, 
+app.get('/google', accountController.getUserInfo,
+  accountController.checkDB,
+  accountController.createUser,
+  accountController.createAccount,
   accountController.viewBalance,
   async (req, res) => {
     console.log('made it out of google route')
@@ -40,13 +47,13 @@ app.get('/google', accountController.getUserInfo,
       account_id: res.user.account_id,
       balance: res.user.balance
     }))
-  // if (res.user.foundUser === false) {
-  //   console.log('did not find user, going to create user')
-  //   res.redirect('/createUser');
-  // } else {
-  //   console.log('user already exists')
-  // }
-})
+    // if (res.user.foundUser === false) {
+    //   console.log('did not find user, going to create user')
+    //   res.redirect('/createUser');
+    // } else {
+    //   console.log('user already exists')
+    // }
+  })
 
 app.get('/dashboardContainer', (req, res) => {
   res.redirect('http://localhost:8080/dashboard')
