@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS accounts cascade;
 CREATE TABLE accounts (
   "account_id" uuid UNIQUE NOT NULL,
   "date_opened" timestamp NOT NULL,
-  "balance" int NOT NULL CHECK (balance >= 0), 
+  "balance" numeric(16,4) NOT NULL CHECK (balance >= 0), 
   "history" varchar, 
   CONSTRAINT "accounts_pk" PRIMARY KEY ("account_id")
 ) WITH (
@@ -26,8 +26,8 @@ CREATE TABLE transactions (
   "transaction_id" serial NOT NULL,
   "type" varchar NOT NULL,
   "sender_id" uuid NOT NULL,
-  "recipient_id" uuid NOT NULL, 
-  "amount" integer NOT NULL, 
+  "recipient_id" uuid, 
+  "amount" numeric(12,2) NOT NULL, 
   "date" timestamp NOT NULL, 
   "memo" varchar, 
   CONSTRAINT "transactions_pk" PRIMARY KEY("transaction_id")
@@ -41,18 +41,18 @@ ALTER TABLE accounts ADD CONSTRAINT "accounts_fk" FOREIGN KEY ("account_id") REF
 
 ALTER TABLE transactions ADD CONSTRAINT "transactions_fk0" FOREIGN KEY ("sender_id") REFERENCES accounts("account_id");
 
-ALTER TABLE transactions ADD CONSTRAINT "transactions_fk1" FOREIGN KEY ("recipient_id") REFERENCES accounts("account_id");
+-- ALTER TABLE transactions ADD CONSTRAINT "transactions_fk1" FOREIGN KEY ("recipient_id") REFERENCES accounts("account_id");
 
 -- INSERT INTO accounts 
 -- VALUES (1, '1999-01-08', 1000000000, 'x');
 
-INSERT INTO users (
-  google_id, 
-  name, 
-  email 
-)
+-- INSERT INTO users (
+--   google_id, 
+--   name, 
+--   email 
+-- )
 
-VALUES (1, 'Bezos', 'bezos@bezos.com');
+-- VALUES (1, 'Bezos', 'bezos@bezos.com');
 
 -- We want to reference "account_id" on users table
 
