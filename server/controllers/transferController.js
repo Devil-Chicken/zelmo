@@ -44,9 +44,10 @@ transferController.sendMoney = (req, res, next) => {
       sender_id, 
       recipient_id, 
       amount,
-      date
+      date, 
+      memo
     )
-    values('transfer', '${senderId}', '${receiverID}', '${sendAmount}', NOW())
+    values('transfer', '${senderId}', '${receiverID}', '${sendAmount}', NOW(), '${req.body.memo}')
     `
     db.query(query2, (err, response) => {
       console.log('Entered Second Query')
