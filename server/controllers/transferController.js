@@ -38,6 +38,16 @@ transferController.sendMoney = (req, res, next) => {
       SET balance = (balance + ${sendAmount})
       WHERE account_id = '${receiverID}'
       `
+    const query3 = `
+    INSERT INTO transactions (
+      type, 
+      sender_id, 
+      recipient_id, 
+      amount,
+      date
+    )
+    values('transfer', '${senderId}', '${receiverID}', '${sendAmount}', NOW())
+    `
     db.query(query2, (err, response) => {
       console.log('Entered Second Query')
       if (err) {
@@ -49,7 +59,10 @@ transferController.sendMoney = (req, res, next) => {
       }
       console.log('sent ', response[0].rows[0]),
         res.locals.sendBalance = response[0].rows[0].balance;
-      return next();
+      db.query(query3, (err, response) => {
+        if (err) console.log(err);
+        return next();
+      })
     })
   })
 

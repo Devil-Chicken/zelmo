@@ -123,16 +123,27 @@ accountController.viewBalance = (req, res, next) => {
 // deposit money
 accountController.depositBalance = (req, res, next) => {
   console.log('Made it to deposit balance');
-  console.log('Request body in depositBalance: ',req.body);
+  console.log('Request body in depositBalance: ', req.body);
 
   const query = `
   UPDATE accounts
   SET balance = (balance + ${req.body.deposit_amount})
   WHERE account_id = '${req.body.account_id}'
-  RETURNING balance
+  RETURNING balance;
   `
+  const query2 = `
+  INSERT INTO transactions (
+    type, 
+    sender_id, 
+    amount, 
+    date
+  )
+  VALUES ('deposit', '${req.body.account_id}', '${req.body.deposit_amount}', NOW());
+  `
+
   db.query(query, (err, response) => {
     if (err) {
+      console.log(err)
       return next({
         log: 'Error in deposit middleware',
         message: { err: 'Error occured in the depositBalance account.Controller' }
@@ -140,7 +151,12 @@ accountController.depositBalance = (req, res, next) => {
     }
     console.log('deposit balance: ', response.rows[0]);
     res.locals.depositBalance = response.rows[0];
-    return next();
+    db.query(query2, (err, response) => {
+      if (err) {
+        console.log(err)
+      }
+      return next();
+    })
   })
 }
 
@@ -152,6 +168,16 @@ accountController.withdrawBalance = (req, res, next) => {
   WHERE account_id = '${req.body.account_id}'
   RETURNING balance
   `
+  const query2 = `
+  INSERT INTO transactions (
+    type, 
+    sender_id, 
+    amount, 
+    date
+  )
+  VALUES ('withdraw', '${req.body.account_id}', '${req.body.withdraw_amount}', NOW());
+  `
+
   db.query(query, (err, response) => {
     if (err) {
       console.log(err)
@@ -162,7 +188,12 @@ accountController.withdrawBalance = (req, res, next) => {
     }
     console.log('withdraw balance: ', response.rows[0]);
     res.locals.withdrawBalance = response.rows[0];
-    return next();
+    db.query(query2, (err, response) => {
+      if (err) {
+        console.log(err)
+      }
+      return next();
+    })
   })
 }
 
