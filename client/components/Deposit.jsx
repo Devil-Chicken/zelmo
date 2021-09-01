@@ -2,14 +2,15 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import fetch from 'node-fetch';
 
-const Deposit = ({ userId, setUser, user}) => {
+const Deposit = ({ userId, setUser, user }) => {
     const history = useHistory();
 
     const onSubmit = (e) => {
         e.preventDefault();
         const body = {
-            account_id : userId,
-            deposit_amount : document.getElementById('deposit_amount').value
+            account_id: userId,
+            deposit_amount: document.getElementById('deposit_amount').value,
+            memo: document.getElementById('deposit_note').value
         }
         console.log('Clicked deposit button, deposit amount is: ', body.deposit_amount)
         fetch('/depositAmount', {
@@ -17,14 +18,14 @@ const Deposit = ({ userId, setUser, user}) => {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(body)  
+            body: JSON.stringify(body)
         })
             .then(res => res.json())
             .then(res => {
                 console.log(res)
-                setUser({...user, balance: res.balance})
+                setUser({ ...user, balance: res.balance })
                 history.push('/dash')
-        })
+            })
             .catch(e => {
                 console.log(e);
             })
@@ -34,8 +35,8 @@ const Deposit = ({ userId, setUser, user}) => {
         <div className="form_container">
             <form className="form" onSubmit={(e) => onSubmit(e)}>
                 <label htmlFor="deposit_amount">Deposit</label>
-                <input id="deposit_amount" type="text" placeholder="Enter deposit amount..." autoComplete="off"/>
-                <input id="deposit_note" type="text" placeholder="Enter memo here..." autoComplete="off"/>
+                <input id="deposit_amount" type="text" placeholder="Enter deposit amount..." autoComplete="off" />
+                <input id="deposit_note" type="text" placeholder="Enter memo here..." autoComplete="off" />
                 <button id="submit_deposit" type="submit">Deposit</button>
             </form>
         </div>

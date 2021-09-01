@@ -10,7 +10,8 @@ const Transfer = ({ userId, setUser, user }) => {
     const body = {
       account_id: userId,
       transfer_amount: document.getElementById('transfer_amount').value,
-      recipient_email: document.getElementById('transfer_recipient').value
+      recipient_email: document.getElementById('transfer_recipient').value,
+      memo: document.getElementById('transfer_description').value
     }
 
     if (body.transfer_amount == '') {
@@ -52,9 +53,9 @@ const Transfer = ({ userId, setUser, user }) => {
     <div className="form_container">
       <form className="form" onSubmit={(e) => onSubmit(e)} >
         <label htmlFor="transfer_recipient">Transfer</label>
-        <input id="transfer_recipient" type="text" placeholder="Recipient..." autoComplete="off"/>
-        <input id="transfer_amount" type="text" placeholder="Transfer amount..." autoComplete="off"/>
-        <input id="transfer_description" type="text" placeholder="Enter memo here..." autoComplete="off"/>
+        <input id="transfer_recipient" type="text" placeholder="Recipient..." autoComplete="off" />
+        <input id="transfer_amount" type="text" placeholder="Transfer amount..." autoComplete="off" />
+        <input id="transfer_description" type="text" placeholder="Enter memo here..." autoComplete="off" />
         <button type="submit">Transfer</button>
       </form>
     </div>
