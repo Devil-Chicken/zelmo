@@ -8,10 +8,12 @@ const Transaction = (props) => {
   let utcString = new Date(props.date).toDateString();
   return (
     <div className='transaction_box'>
-      <div> DATE: { utcString} </div>
-      <div> Transaction Type: { props.type } </div>
-      <div> Amount: { props.amount }</div>
-      <div> Memo: { props.memo } </div>
+      <ul>
+      <li><div> DATE: { utcString} </div></li>
+      <li><div> Transaction Type: { props.type } </div></li>
+      <li><div> Amount: { props.amount }</div></li>
+      <li><div> Memo: { props.memo } </div></li>
+      </ul>
     </div>
     )
   };
