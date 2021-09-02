@@ -136,9 +136,10 @@ accountController.depositBalance = (req, res, next) => {
     type, 
     sender_id, 
     amount, 
-    date
+    date, 
+    memo
   )
-  VALUES ('deposit', '${req.body.account_id}', '${req.body.deposit_amount}', NOW());
+  VALUES ('deposit', '${req.body.account_id}', '${req.body.deposit_amount}', NOW(), '${req.body.memo}');
   `
 
   db.query(query, (err, response) => {
@@ -173,9 +174,10 @@ accountController.withdrawBalance = (req, res, next) => {
     type, 
     sender_id, 
     amount, 
-    date
+    date, 
+    memo
   )
-  VALUES ('withdraw', '${req.body.account_id}', '${req.body.withdraw_amount}', NOW());
+  VALUES ('withdraw', '${req.body.account_id}', '${req.body.withdraw_amount}', NOW(), '${req.body.memo}');
   `
 
   db.query(query, (err, response) => {
