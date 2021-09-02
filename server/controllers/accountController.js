@@ -39,7 +39,7 @@ accountController.checkDB = async (req, res, next) => {
       }
       return next();
     })
-    .catch(e => console.log(e))
+    .catch(e => console.log('ERROR IS HAPPENING HERE: ', e))
 }
 
 accountController.createUser = async (req, res, next) => {

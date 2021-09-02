@@ -4,10 +4,12 @@ const transactionController = {};
 
 // QUERY THE TRANSACTION DB and return the information we need
 transactionController.viewTransactions = (req, res, next) => {
+  console.log('enterted middleware')
+  // console.log('HEADER', req.headers)
   const query = `
   SELECT *
   FROM transactions
-  WHERE sender_id OR recipient_id = '${res.user.account_id}
+  WHERE sender_id = '${req.headers.userid}' OR recipient_id = '${req.headers.userid}'
   `
 
   db.query(query, (err, response) => {
@@ -19,8 +21,9 @@ transactionController.viewTransactions = (req, res, next) => {
         message: { err: 'Error getting transaction history'}
       })
     }
-    console.log('transaction history received: ', response);
+    console.log('transaction history received: ', response.rows[0]);
     res.locals.transactions = response.rows;
+    return next();
   })
 }
 
