@@ -91,6 +91,12 @@ app.post('/send', transferController.sendMoney, (req, res) => {
   res.status(200).json(res.locals.sendBalance)
 })
 
+// TRANSACTION HISTORY GET REQUEST
+app.get('/transactionHistory', transactionController.viewTransactions, (req, res) => {
+  console.log('Successfully pulled transactions')
+  res.status(200).json(res.locals.transactions)
+})
+
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('Page not Found'));
 

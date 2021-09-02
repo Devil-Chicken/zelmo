@@ -21,7 +21,8 @@ module.exports = {
       '/depositAmount': 'http://localhost:3000',
       '/withdrawAmount': 'http://localhost:3000',
       '/send': 'http://localhost:3000',
-      '/test': 'http://localhost:3000'
+      '/test': 'http://localhost:3000',
+      '/transactionHistory': 'http://localhost:3000'
     },
     hot: true,
 
