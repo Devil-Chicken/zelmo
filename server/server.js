@@ -4,6 +4,8 @@ const app = express();
 const PORT = 3000;
 const accountController = require('./controllers/accountController');
 const transferController = require('./controllers/transferController');
+// ADDING TRANSACTION CONTROLLER
+const transactionController = require('./controllers/transactionController');
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 const session = require('express-session');
@@ -15,11 +17,11 @@ const SecretKey = process.env.SECRET_KEY;
 
 app.use(express.json());
 
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'default_session_secret',
-  resave: false,
-  saveUnintialized: false,
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET || 'default_session_secret',
+//   resave: false,
+//   saveUnintialized: false,
+// }));
 
 app.get('/oauth', (req, res) => {
   console.log('made it to oauth route');
@@ -77,6 +79,12 @@ app.post('/withdrawAmount', accountController.withdrawBalance, (req, res) => {
 app.post('/send', transferController.sendMoney, (req, res) => {
   console.log('Successfully sent');
   res.status(200).json(res.locals.sendBalance)
+})
+
+// TRANSACTION HISTORY GET REQUEST
+app.get('/transactionHistory', transactionController.viewTransactions, (req, res) => {
+  console.log('Successfully pulled transactions')
+  res.status(200).json(res.locals.transactions)
 })
 
 // catch-all route handler for any requests to an unknown route

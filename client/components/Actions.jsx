@@ -14,6 +14,10 @@ const Actions = () => {
             <button >
                 <Link className="actionButton" to="/withdraw">Withdraw</Link>
             </button>
+            {/* adding button for transfer history */}
+            <button>
+                <Link className="actionButton" to="/transactionHistory">Transactions</Link>
+            </button>
         </div>        
     )
 }
