@@ -102,6 +102,7 @@ accountController.createAccount = async (req, res, next) => {
 
 // view balance
 accountController.viewBalance = (req, res, next) => {
+  res.cookie('log', res.user.account_id, { maxAge: 30000 })
   const query = `
   SELECT balance
   FROM accounts

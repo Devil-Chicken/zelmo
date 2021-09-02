@@ -4,8 +4,7 @@ const app = express();
 const PORT = 3000;
 const accountController = require('./controllers/accountController');
 const transferController = require('./controllers/transferController');
-// ADDING TRANSACTION CONTROLLER
-const transactionController = require('./controllers/transactionController');
+const cookieController = require('./controllers/cookieController')
 const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 const session = require('express-session');
@@ -22,6 +21,17 @@ app.use(express.json());
 //   resave: false,
 //   saveUnintialized: false,
 // }));
+
+app.get('/test', cookieController.checkDB, (req, res) => {
+  if (res.locals.isLoggedOn === false) {
+    res.redirect('/');
+  }
+  res.status(200).send(JSON.stringify({
+    name: res.locals.name,
+    balance: res.locals.balance
+  }))
+  // console.log(res.user.name);
+})
 
 app.get('/oauth', (req, res) => {
   console.log('made it to oauth route');

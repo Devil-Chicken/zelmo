@@ -5,7 +5,7 @@ import '../stylesheets/styles.css'
 
 const Login = ({ setUser }) => {
   let history = useHistory();
-  
+
   // const onSubmit = () => {
   //   fetch('/oauth')
 
@@ -16,6 +16,20 @@ const Login = ({ setUser }) => {
     fetch('/google', {
       method: 'GET',
       headers: { access_code: access_code }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        setUser(res);
+        history.push('/dash');
+      })
+      .catch(err => console.log('ERRRR', err))
+  }
+
+  const quickView = () => {
+    console.log('invoking quickView');
+    fetch('/test', {
+      method: 'GET'
     })
       .then(res => res.json())
       .then(res => {
@@ -40,6 +54,8 @@ const Login = ({ setUser }) => {
       <h1 id="zelmo_title">zelmo</h1>
       <form id="googleLogin" action='/oauth' method='GET'>
         <button id="login_button" type="submit" value="login" ><img id="google_logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Login with Google</button>
+        {/* <button onClick={quickView()}></button> */}
+        {quickView()}
       </form>
     </div>
   )
